@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer League Manager</title>
+    <meta name="description" content="Create and manage your soccer league with professional standings and fixtures.">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="animations.css">
+    <!-- Font imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-container">
+                <h1>Soccer League Manager</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark/light theme">
+                    <span class="theme-icon"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Section -->
+        <main class="main-content">
+            <!-- Initial Welcome Screen -->
+            <section id="welcomeScreen" class="welcome-screen active">
+                <div class="welcome-content">
+                    <h2>Welcome to Soccer League Manager</h2>
+                    <p>Create professional leagues with automatic fixtures and standings</p>
+                    <button id="createLeagueBtn" class="btn btn-primary">Create New League</button>
+                </div>
+            </section>
+
+            <!-- League Setup Screen -->
+            <section id="leagueSetupScreen" class="setup-screen">
+                <div class="setup-content">
+                    <h2>League Setup</h2>
+                    <form id="leagueSetupForm">
+                        <div class="form-group">
+                            <label for="leagueName">League Name</label>
+                            <input type="text" id="leagueName" required placeholder="e.g., Premier League 2025">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="numberOfPlayers">Number of Players/Teams</label>
+                            <select id="numberOfPlayers" required>
+                                <option value="">Select number of players</option>
+                                <option value="4">4 Players</option>
+                                <option value="5">5 Players</option>
+                                <option value="6">6 Players</option>
+                                <option value="7">7 Players</option>
+                                <option value="8">8 Players</option>
+                                <option value="10">10 Players</option>
+                                <option value="12">12 Players</option>
+                                <option value="14">14 Players</option>
+                                <option value="16">16 Players</option>
+                            </select>
+                        </div>
+                        
+                        <div id="playersInputContainer" class="players-input-container">
+                            <!-- Player inputs will be dynamically added here -->
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" id="backToWelcomeBtn" class="btn btn-secondary">Back</button>
+                            <button type="submit" class="btn btn-primary">Generate League</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- League View Screen -->
+            <section id="leagueViewScreen" class="league-view-screen">
+                <div class="league-header">
+                    <h2 id="leagueDisplayName">League Name</h2>
+                    <div class="league-navigation">
+                        <button id="standingsBtn" class="tab-btn active">Standings</button>
+                        <button id="fixturesBtn" class="tab-btn">Fixtures</button>
+                        <button id="statsBtn" class="tab-btn">Stats</button>
+                    </div>
+                </div>
+                
+                <!-- Standings Tab Content -->
+                <div id="standingsContent" class="tab-content active">
+                    <div class="standings-container" id="standingsContainer">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th class="rank-column">#</th>
+                                    <th class="team-column">Team</th>
+                                    <th>MP</th>
+                                    <th>W</th>
+                                    <th>D</th>
+                                    <th>L</th>
+                                    <th>GF</th>
+                                    <th>GA</th>
+                                    <th>GD</th>
+                                    <th>Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="standingsTableBody">
+                                <!-- Standings will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Fixtures Tab Content -->
+                <div id="fixturesContent" class="tab-content">
+                    <div class="fixtures-controls">
+                        <div class="matchday-selector">
+                            <button id="prevMatchdayBtn" class="btn btn-icon"><span>◀</span></button>
+                            <span id="currentMatchdayDisplay">Matchday 1</span>
+                            <button id="nextMatchdayBtn" class="btn btn-icon"><span>▶</span></button>
+                        </div>
+                        <div class="view-options">
+                            <button id="allFixturesBtn" class="btn btn-sm active">All Fixtures</button>
+                            <button id="pendingFixturesBtn" class="btn btn-sm">Pending</button>
+                            <button id="completedFixturesBtn" class="btn btn-sm">Completed</button>
+                        </div>
+                    </div>
+                    
+                    <div class="fixtures-list" id="fixturesList">
+                        <!-- Fixtures will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Stats Tab Content -->
+                <div id="statsContent" class="tab-content">
+                    <div class="stats-container">
+                        <div class="stats-card">
+                            <h3>Top Scorers</h3>
+                            <div class="stats-list" id="topScorers">
+                                <!-- Top scorers will be populated dynamically -->
+                            </div>
+                        </div>
+                        
+                        <div class="stats-card">
+                            <h3>League Stats</h3>
+                            <div class="stats-overview" id="leagueStats">
+                                <!-- League stats will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="league-actions">
+                    <button id="newLeagueBtn" class="btn btn-secondary">New League</button>
+                    <button id="saveLeagueBtn" class="btn btn-primary">Save League</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="app-footer">
+            <p>&copy; 2025 Soccer League Manager | <a href="#" id="aboutLink">About</a></p>
+        </footer>
+    </div>
+
+    <!-- Match Result Modal -->
+    <div class="modal" id="matchResultModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Enter Match Result</h3>
+            <div class="match-info" id="modalMatchInfo">
+                <!-- Match info will be populated dynamically -->
+            </div>
+            <div class="match-result-form">
+                <div class="team-result">
+                    <span id="homeTeamName">Home Team</span>
+                    <input type="number" id="homeTeamScore" min="0" value="0">
+                </div>
+                <div class="vs-indicator">VS</div>
+                <div class="team-result">
+                    <span id="awayTeamName">Away Team</span>
+                    <input type="number" id="awayTeamScore" min="0" value="0">
+                </div>
+                <button id="saveResultBtn" class="btn btn-primary">Save Result</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>About Soccer League Manager</h3>
+            <div class="about-content">
+                <p>Soccer League Manager is a professional tool for creating and managing soccer leagues.</p>
+                <p>Features:</p>
+                <ul>
+                    <li>Support for 4-16 players/teams</li>
+                    <li>Automatic fixture generation (home & away)</li>
+                    <li>Live standings table updates</li>
+                    <li>Match result tracking</li>
+                    <li>League statistics</li>
+                </ul>
+                <p>Using professional league rules:</p>
+                <ul>
+                    <li>Win: 3 points</li>
+                    <li>Draw: 1 point</li>
+                    <li>Loss: 0 points</li>
+                </ul>
+                <p>Standings are sorted by: Points → Goal Difference → Goals For → Head-to-head</p>
+                <p>Each match has two legs:</p>
+                <ul>
+                    <li>Leg 1: Home match (first half of season)</li>
+                    <li>Leg 2: Away match (second half of season)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Match Templates -->
+    <template id="fixtureTemplate">
+        <div class="fixture-card" data-match-id="{match-id}">
+            <div class="fixture-header">
+                <span>Matchday {matchday}</span>
+                <div class="fixture-status">{status}</div>
+            </div>
+            <div class="fixture-teams">
+                <div class="team home-team">
+                    <span class="team-name">{home-team}</span>
+                </div>
+                <div class="fixture-score">
+                    <span>{score}</span>
+                </div>
+                <div class="team away-team">
+                    <span class="team-name">{away-team}</span>
+                </div>
+            </div>
+            <div class="fixture-actions">
+                <button class="btn btn-sm btn-result" data-match-id="{match-id}">
+                    {button-text}
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template id="standingRowTemplate">
+        <tr>
+            <td class="team-rank">{position}</td>
+            <td class="team-name">{team-name}</td>
+            <td>{played}</td>
+            <td>{won}</td>
+            <td>{drawn}</td>
+            <td>{lost}</td>
+            <td>{goals-for}</td>
+            <td>{goals-against}</td>
+            <td>{goal-difference}</td>
+            <td class="team-points">{points}</td>
+        </tr>
+    </template>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>
