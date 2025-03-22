@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eFootball Tournament Manager</title>
+    <meta name="description" content="Create and manage your eFootball 2025 tournaments with professional group and knockout stages.">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/icons/favicon.png">
+    <!-- Font imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-container">
+                <h1>eFootball Tournament</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark/light theme">
+                    <span class="theme-icon"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Section -->
+        <main class="main-content">
+            <!-- Initial Welcome Screen -->
+            <section id="welcomeScreen" class="welcome-screen active">
+                <div class="welcome-content animate-scale-in">
+                    <h2>Welcome to eFootball Tournament Manager</h2>
+                    <p>Create professional tournaments with group stages and knockout rounds</p>
+                    <button id="createTournamentBtn" class="btn btn-primary animate-button-glow">Create New Tournament</button>
+                </div>
+            </section>
+
+            <!-- Tournament Setup Screen -->
+            <section id="tournamentSetupScreen" class="tournament-setup-screen">
+                <div class="setup-content">
+                    <h2 class="animate-fade-in-down">Tournament Setup</h2>
+                    <form id="tournamentSetupForm">
+                        <div class="form-group animate-fade-in-up delay-100">
+                            <label for="tournamentName">Tournament Name</label>
+                            <input type="text" id="tournamentName" required placeholder="e.g., World Cup 2025">
+                        </div>
+                        
+                        <div class="form-group animate-fade-in-up delay-200">
+                            <label for="numberOfGroups">Number of Groups</label>
+                            <select id="numberOfGroups" required>
+                                <option value="">Select number of groups</option>
+                                <option value="1">1 Group</option>
+                                <option value="2">2 Groups</option>
+                                <option value="3">3 Groups</option>
+                                <option value="4">4 Groups</option>
+                                <option value="6">6 Groups</option>
+                                <option value="8">8 Groups</option>
+                            </select>
+                        </div>
+                        
+                        <div id="teamsInputContainer" class="teams-input-container reveal-grid">
+                            <!-- Team inputs will be dynamically added here based on number of groups -->
+                        </div>
+                        
+                        <div class="form-actions animate-fade-in-up delay-300">
+                            <button type="button" id="backToWelcomeBtn" class="btn btn-secondary animate-ripple">Back</button>
+                            <button type="submit" class="btn btn-primary animate-ripple">Generate Tournament</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Tournament View Screen -->
+            <section id="tournamentViewScreen" class="tournament-view-screen">
+                <!-- This section will be populated dynamically with tournament data -->
+                <div class="tournament-header">
+                    <h2 id="tournamentDisplayName" class="animate-fade-in-down">Tournament Name</h2>
+                    <div class="tournament-navigation animate-fade-in">
+                        <button id="groupStageBtn" class="tab-btn active">Group Stage</button>
+                        <button id="knockoutStageBtn" class="tab-btn">Knockout Stage</button>
+                    </div>
+                </div>
+                
+                <!-- Tournament Stats Dashboard -->
+                <div id="tournamentStats" class="tournament-stats-dashboard animate-fade-in">
+                    <div class="stats-content">
+                        <div class="stat-item animate-fade-in-up">
+                            <div class="stat-label">Progress</div>
+                            <div class="stat-value">
+                                <div class="progress-container">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                </div>
+                                <span id="progressValue">0%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item animate-fade-in-up delay-100">
+                            <div class="stat-label">Teams</div>
+                            <div class="stat-value" id="teamsCount">0</div>
+                        </div>
+                        <div class="stat-item animate-fade-in-up delay-200">
+                            <div class="stat-label">Matches</div>
+                            <div class="stat-value" id="matchesCount">0 / 0</div>
+                        </div>
+                        <div class="stat-item animate-fade-in-up delay-300">
+                            <div class="stat-label">Goals</div>
+                            <div class="stat-value" id="goalsCount">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="groupStageContent" class="stage-content active">
+                    <div class="groups-container" id="groupsContainer">
+                        <!-- Groups will be dynamically added here -->
+                    </div>
+                    
+                    <div class="matches-container">
+                        <h3 class="animate-fade-in">Match Schedule</h3>
+                        <div class="matchday-tabs" id="matchdayTabs">
+                            <!-- Matchday tabs will be added here -->
+                        </div>
+                        <div class="matches-list" id="matchesList">
+                            <!-- Matches will be added here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="knockoutStageContent" class="stage-content">
+                    <div class="bracket-wrapper">
+                        <div class="knockout-bracket" id="knockoutBracket">
+                            <!-- Knockout bracket will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tournament-actions">
+                    <button id="newTournamentBtn" class="btn btn-secondary animate-ripple">New Tournament</button>
+                    <button id="saveTournamentBtn" class="btn btn-primary animate-ripple">Save Tournament</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="app-footer">
+            <p>&copy; 2025 eFootball Tournament Manager | <a href="#" id="aboutLink">About</a></p>
+        </footer>
+    </div>
+
+    <!-- Templates will be loaded from the templates directory -->
+    
+    <!-- Modal for match result input -->
+    <div class="modal backdrop-blur" id="matchResultModal">
+        <div class="modal-content animate-scale-in">
+            <span class="close-modal">&times;</span>
+            <h3>Enter Match Result</h3>
+            <div class="match-result-form">
+                <div class="team-result">
+                    <span id="homeTeamName">Home Team</span>
+                    <input type="number" id="homeTeamScore" min="0" value="0">
+                </div>
+                <div class="vs-indicator">VS</div>
+                <div class="team-result">
+                    <span id="awayTeamName">Away Team</span>
+                    <input type="number" id="awayTeamScore" min="0" value="0">
+                </div>
+                <button id="saveResultBtn" class="btn btn-primary animate-ripple">Save Result</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game-style notification system -->
+    <div class="game-notification" id="gameNotification"></div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner-dual"></div>
+        <p>Loading Tournament Data...</p>
+    </div>
+
+    <!-- Trophy celebration container -->
+    <div class="winner-celebration" id="winnerCelebration"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/storage.js"></script>
+    <script src="js/models/tournament.js"></script>
+    <script src="js/models/team.js"></script>
+    <script src="js/models/match.js"></script>
+    <script src="js/models/group.js"></script>
+    <script src="js/controllers/tournamentController.js"></script>
+    <script src="js/controllers/groupController.js"></script>
+    <script src="js/controllers/matchController.js"></script>
+    <script src="js/controllers/knockoutController.js"></script>
+    <script src="js/views/tournamentView.js"></script>
+    <script src="js/views/groupView.js"></script>
+    <script src="js/views/matchView.js"></script>
+    <script src="js/views/knockoutView.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
